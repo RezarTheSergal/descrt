@@ -6,21 +6,14 @@ from error_simulator import ErrorSimulator
 
 def main():
     table_size = int(sys.argv[1])
-    combo_size = int(sys.argv[2])
-    
-    # Проверка корректности параметров
-    max_data_bits = 2**table_size - 1 - table_size
-    if combo_size > max_data_bits:
-        print(f"Максимум {max_data_bits} информационных бит")
-        print(f"Вы запросили: {combo_size} бит")
-        return
+    data_bits = 2**table_size - 1 - table_size
     
     # 1-2.
-    original_bits = BitGenerator.generate(combo_size)
-    print(f"\nИзначальная комбинация ({combo_size} бит): {original_bits}")
+    original_bits = BitGenerator.generate(data_bits)
+    print(f"\nИзначальная комбинация ({data_bits} бит): {original_bits}")
     
     # 3-4.
-    hamming = HammingCode(table_size, combo_size)
+    hamming = HammingCode(table_size, data_bits)
     print(f"\nПроверочная таблица ({table_size}x{2**table_size - 1}):")
     hamming.print_table()
     
