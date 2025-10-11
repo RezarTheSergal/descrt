@@ -1,9 +1,6 @@
-"""
-Реализация алгоритма Хаффмана
-"""
 import csv
 import heapq
-from collections import defaultdict
+from typing import Any
 
 
 class Node:
@@ -18,20 +15,19 @@ class Node:
 
 
 class Huffman:
-    def __init__(self, frequencies):
+    def __init__(self, frequencies: dict[str, Any]):
         self.frequencies = frequencies
         self.codes = {}
         self.root = None
         
     def encode(self):
-        """Построение кодов методом Хаффмана"""
         if len(self.frequencies) == 1:
-            # Особый случай: один символ
+            # один символ
             char = list(self.frequencies.keys())[0]
             self.codes = {char: "0"}
             return self.codes
         
-        # Создаем приоритетную очередь
+        # приоритетную очередь
         heap = [Node(char, freq) for char, freq in self.frequencies.items()]
         heapq.heapify(heap)
         

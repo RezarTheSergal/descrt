@@ -10,7 +10,6 @@ class BigramAnalyzer:
         self.bigrams = {}
         
     def build_bigrams(self):
-        """Создание словаря биграмм с частотами"""
         bigram_list = [
             self.text[i:i+2] 
             for i in range(len(self.text) - 1)
@@ -20,8 +19,7 @@ class BigramAnalyzer:
         total = len(bigram_list)
         
         self.bigrams = {
-            bigram: count / total
-            for bigram, count in counter.items()
+            bigram: count / total for bigram, count in counter.items()
         }
         
         # Сортировка по частоте
@@ -31,8 +29,4 @@ class BigramAnalyzer:
             reverse=True
         ))
         
-        return self.bigrams
-    
-    def get_frequency_dict(self):
-        """Получение словаря частот для кодирования"""
         return self.bigrams
