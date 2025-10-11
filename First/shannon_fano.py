@@ -1,6 +1,3 @@
-"""
-Реализация алгоритма Шеннона-Фано
-"""
 import csv
 from typing import Any
 

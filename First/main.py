@@ -1,6 +1,3 @@
-"""
-Главный файл программы для анализа текста и кодирования
-"""
 import argparse
 from text_analyzer import TextAnalyzer
 from shannon_fano import ShannonFano
@@ -55,12 +52,12 @@ def main(args):
     else:
         print("Ошибка декодирования!")
     
-    # 17.
-    print("\nШенон-Фано (дву. б):")
-    
     bigram_analyzer = BigramAnalyzer(text)
     bigrams = bigram_analyzer.build_bigrams()
     print(f"Построено {len(bigrams)} биграмм")
+
+    # 17.
+    print("\nШенон-Фано (дву. б):")
     
     sf_bigram = ShannonFano(bigram_analyzer.bigrams)
     sf_bigram.encode()
