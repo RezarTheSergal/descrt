@@ -98,7 +98,7 @@ def main(args):
     
     print("\nХаффман (дву. б)")
     
-    hf_bigram = Huffman(bigram_analyzer.get_frequency_dict())
+    hf_bigram = Huffman(bigram_analyzer.bigrams)
     hf_bigram.encode()
     hf_bigram.save_to_csv((save_directory_path / 'huffman_bigram.csv').__str__())
     print("Схема кодирования биграмм сохранена")

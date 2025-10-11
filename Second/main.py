@@ -5,10 +5,6 @@ from error_simulator import ErrorSimulator
 
 
 def main():
-    if len(sys.argv) != 3:
-        print("Использование: python main.py <размер_таблицы> <размер_комбинации>")
-        return
-
     table_size = int(sys.argv[1])
     combo_size = int(sys.argv[2])
     
