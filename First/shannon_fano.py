@@ -81,3 +81,7 @@ class ShannonFano:
                 current_code = ""
         
         return ''.join(decoded)
+
+    def encode_text_bigram(self, text: str):
+        double_text = [text[i:i+2] for i in range(0, len(text)-1, 2)]
+        return ''.join(self.codes.get(char, '') for char in double_text)
