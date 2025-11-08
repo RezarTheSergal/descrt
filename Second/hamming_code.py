@@ -1,29 +1,21 @@
-"""
-Класс для работы с кодом Хемминга
-"""
 import numpy as np
 
 
 class HammingCode:
     def __init__(self, r, l):
-        """
-        Инициализация кода Хемминга
-        r - количество проверочных битов
-        l - изначальная длинна слова
-        """
-        self.l = l
-        self.r = r
+        self.l = l # изначальная длинна слова
+        self.r = r # количество проверочных битов
         self.n = 2**r - 1  # общая длина кодового слова
         self.k = self.n - r  # количество информационных битов
         self.parity_matrix = self._generate_parity_matrix()
     
+    # H
     def _generate_parity_matrix(self):
-        """Генерация проверочной матрицы H"""
         matrix = []
         for i in range(self.r):
             row = []
             for pos in range(1, self.n + 1):
-                # Проверяем, участвует ли позиция pos в проверочном бите 2^i
+                # Проверка на участие позиции pos в проверочном бите 2^i
                 if pos & (1 << i):
                     row.append(1)
                 else:
@@ -32,28 +24,18 @@ class HammingCode:
         return np.array(matrix)
     
     def get_parity_positions(self):
-        """Возвращает позиции проверочных битов (степени двойки)"""
         return [2**i for i in range(self.r)]
     
     def print_table(self):
-        """Вывод проверочной таблицы"""
         print(f"  П-и: {' '.join(f'{i+1:2d}' for i in range(self.n))}")
         for i, row in enumerate(self.parity_matrix):
             print(f"   r{i+1}: {' '.join(f'{bit:2d}' for bit in row)}")
     
     def encode(self, data_bits):
-        """
-        Кодирование информационных битов
-        data_bits - строка из '0' и '1'
-        """
-        if len(data_bits) > self.k:
-            raise ValueError(f"Слишком много битов. Максимум: {self.k}")
-        
-        # Создаём кодовое слово с нулями
         code_word = [0] * self.n
         data_idx = 0
         
-        # Размещаем информационные биты (пропускаем позиции степеней двойки)
+        # Размещаем информационные биты
         for pos in range(1, self.n + 1):
             if pos & (pos - 1) != 0:  # не степень двойки
                 if data_idx < len(data_bits):
@@ -75,7 +57,6 @@ class HammingCode:
         return ''.join(str(b) for b in code_word)
     
     def calculate_syndrome(self, received_bits):
-        """Вычисление синдрома для поиска ошибки"""
         syndrome = 0
         received = [int(b) for b in received_bits]
         
@@ -89,7 +70,6 @@ class HammingCode:
         return syndrome
     
     def correct_error(self, received_bits, syndrome):
-        """Исправление ошибки на основе синдрома"""
         if syndrome == 0:
             return received_bits
         
@@ -102,7 +82,6 @@ class HammingCode:
         return ''.join(received_list)
     
     def decode(self, code_word):
-        """Извлечение информационных битов из кодового слова"""
         data_bits = []
         
         for pos in range(1, self.n + 1):
